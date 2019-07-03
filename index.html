@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wall clock</title>
+    <style>
+    html {
+        background-color: dodgerblue;
+    }
+    .clock-position {
+        display: flex;
+        /* justify-content throws all the items together to be at the center. */
+        justify-content: center;
+        height: 500px;
+        /* align-items throws all the items to the center of the container height.*/
+        align-items: center;
+    }
+    .clock {
+        position: relative;
+        border: 10px solid white;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+    }
+    .clock-center {
+        position: absolute;
+        top: 49%;
+        left: 48%;
+        width: 0%;
+        height: 0px;
+        border: 6px solid black;
+        border-radius: 50%;
+    }
+    .hour-hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 25%;
+        height: 0px;
+        border: 3px solid black;
+        transition: all 0.01s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        transform-origin: 0%;
+    }
+    .minutes-hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40%;
+        height: 0px;
+        border: 3px solid black;
+        transition: all 0.01s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        transform-origin: 0%;
+    }
+    .seconds-hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40%;
+        height: 0px;
+        border: 1px solid black;
+        transition: all 0.01s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        transform-origin: 0%;
+    }
+    </style>
+</head>
+<body>
+    <div class="clock-position">
+        <div class="clock">
+            <div class="clock-center"></div>
+            <div class="hour-hand"></div>
+            <div class="minutes-hand"></div>
+            <div class="seconds-hand"></div>
+        </div>
+    </div>  
+    <script>
+    function currentDate() {
+        let d = new Date();
+        let hour = d.getHours();
+        let minute = d.getMinutes();
+        let second = d.getSeconds();
+        hour = hour % 12;
+        let hourDegrees = ((hour / 12) * 360) - 90;
+        let minDegrees = ((minute / 60) * 360) - 90;
+        let secDegrees = ((second / 60) * 360) - 90;
+        document.querySelector(".hour-hand").style.transform = 'rotate(' + hourDegrees + 'deg)';
+        document.querySelector(".minutes-hand").style.transform = 'rotate(' + minDegrees + 'deg)';
+        document.querySelector(".seconds-hand").style.transform = 'rotate(' + secDegrees + 'deg)';
+    }
+    setInterval(currentDate, 1000);
+    </script>
+</body>
+</html>
